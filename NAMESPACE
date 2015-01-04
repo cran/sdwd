@@ -1,0 +1,21 @@
+useDynLib("sdwd")
+
+import("Matrix")
+
+export(sdwd, sdwdpath, 
+cv.sdwd, cv.sdwdNET,
+coef.sdwd, coef.sdwdNET,
+predict.sdwd, print.sdwd, plot.sdwd,
+predict.cv.sdwd, coef.cv.sdwd, plot.cv.sdwd,
+cvcompute, err, error.bars, getmin, 
+getoutput, lambda.interp, lamfix, nonzero,
+zeromat
+)
+
+S3method("print","sdwd")
+S3method("coef","sdwd")
+S3method("plot","sdwd")
+S3method("predict","sdwd")
+S3method("coef","cv.sdwd")
+S3method("plot","cv.sdwd")
+S3method("predict","cv.sdwd")
