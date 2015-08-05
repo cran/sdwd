@@ -24,16 +24,17 @@ This function predicts the binary class labels or the fitted values of an \code{
 
 \author{Boxiang Wang and Hui Zou\cr
 Maintainer: Boxiang Wang  \email{boxiang@umn.edu}}
-\references{Wang, B. and Zou, H. (2015)
-  ``Sparse Distance Weighted Discrimination".%, \emph{University of Minnesoa Statistics Technical Report.}
+\references{
+Wang, B. and Zou, H. (2015)
+  ``Sparse Distance Weighted Discrimination", \emph{Journal of Computational and Graphical Statistics}, forthcoming. \cr
+  \url{http://arxiv.org/abs/1501.06066}\cr
   \cr
-  \url{}\cr
 Yang, Y. and Zou, H. (2013)
 ``An Efficient Algorithm for Computing the HHSVM and Its Generalizations", 
   \emph{Journal of Computational and Graphical Statistics}, \bold{22}(2), 396--415\cr
   \url{http://users.stat.umn.edu/~yiyang/resources/papers/JCGS_gcdnet.pdf}\cr
-  
-  Friedman, J., Hastie, T., and Tibshirani, R. (2010), "Regularization paths for generalized
+ \cr 
+Friedman, J., Hastie, T., and Tibshirani, R. (2010), "Regularization paths for generalized
 linear models via coordinate descent," \emph{Journal of Statistical Software}, \bold{33}(1), 1--22\cr
 \url{http://www.jstatsoft.org/v33/i01/paper}
 \cr

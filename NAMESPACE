@@ -1,16 +1,14 @@
 useDynLib("sdwd")
 
 import("Matrix")
+importFrom("grDevices", "gray.colors")
+importFrom("graphics", "abline", "axis", "matplot", "points", "segments", "text")
+importFrom("stats", "approx", "coef", "predict")
+importFrom("methods", "new")
 
-export(sdwd, sdwdpath, 
-cv.sdwd, cv.sdwdNET,
-coef.sdwd, coef.sdwdNET,
-predict.sdwd, print.sdwd, plot.sdwd,
-predict.cv.sdwd, coef.cv.sdwd, plot.cv.sdwd,
-cvcompute, err, error.bars, getmin, 
-getoutput, lambda.interp, lamfix, nonzero,
-zeromat
-)
+export(sdwd, cv.sdwd, coef.sdwd, predict.sdwd, print.sdwd, plot.sdwd, predict.cv.sdwd, coef.cv.sdwd, plot.cv.sdwd,
+cvcompute, err, error.bars, getmin, getoutput, 
+lambda.interp, lamfix, nonzero, zeromat)
 
 S3method("print","sdwd")
 S3method("coef","sdwd")

@@ -56,19 +56,19 @@ An object with S3 class \code{\link{sdwd}}.
 Maintainer: Boxiang Wang  \email{boxiang@umn.edu}}
 \references{
 Wang, B. and Zou, H. (2015)
-  ``Sparse Distance Weighted Discrimination".%, \emph{University of Minnesoa Statistics Technical Report.}
+  ``Sparse Distance Weighted Discrimination", \emph{Journal of Computational and Graphical Statistics}, forthcoming. \cr
+  \url{http://arxiv.org/abs/1501.06066}\cr
   \cr
-  \url{}\cr
-  Friedman, J., Hastie, T., and Tibshirani, R. (2010), "Regularization paths for generalized
+Friedman, J., Hastie, T., and Tibshirani, R. (2010), "Regularization paths for generalized
 linear models via coordinate descent," \emph{Journal of Statistical Software}, \bold{33}(1), 1--22\cr
-\url{http://www.jstatsoft.org/v33/i01/paper}
+\url{http://www.jstatsoft.org/v33/i01/paper}\cr
 \cr
- Marron, J.S., Todd, M.J., Ahn, J. (2007)
+Marron, J.S., Todd, M.J., Ahn, J. (2007)
 ``Distance-Weighted Discrimination"", 
   \emph{Journal of the American Statistical Association}, \bold{102}(408), 1267--1271\cr
   \url{https://faculty.franklin.uga.edu/jyahn/sites/faculty.franklin.uga.edu.jyahn/files/DWD3.pdf}\cr
   \cr
- Tibshirani, Robert., Bien, J., Friedman, J.,Hastie, T.,Simon,
+Tibshirani, Robert., Bien, J., Friedman, J.,Hastie, T.,Simon,
   N.,Taylor, J., and Tibshirani, Ryan. (2012)
   Strong Rules for Discarding Predictors in Lasso-type Problems,
     \emph{Journal of the Royal Statistical Society, Series B}, \bold{74}(2), 245--266\cr

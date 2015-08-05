@@ -1,5 +1,5 @@
 predict.sdwd = function(object, newx, s=NULL, 
-                             type=c("class", "link"), ...) {
+    type=c("class", "link"), ...) {
   type = match.arg(type)
   b0 = t(as.matrix(object$b0))
   rownames(b0) = "(Intercept)"
@@ -20,14 +20,14 @@ predict.sdwd = function(object, newx, s=NULL,
 } 
 
 print.sdwd = function(x, digits=max(3, 
-              getOption("digits")-3), ...) {
+    getOption("digits")-3), ...) {
   cat("\nCall: ", deparse(x$call), "\n\n")
   print(cbind(Df=x$df, Lambda=signif(x$lambda, digits)))
 } 
 
 
 plot.sdwd = function(x, xvar=c("norm", "lambda"), 
-                        color=FALSE, label=FALSE, ...) {
+    color=FALSE, label=FALSE, ...) {
   beta = x$beta
   lambda = x$lambda
   df = x$df
@@ -36,13 +36,16 @@ plot.sdwd = function(x, xvar=c("norm", "lambda"),
   which = nonzero(beta)
   beta = as.matrix(beta[which, ])
   xvar = match.arg(xvar)
-  switch(xvar, norm={
-    index = colSums(abs(beta))
-    iname = "L1 Norm"
-          }, lambda={
-    index = log(lambda)
-    iname = "Log Lambda"
-  })
+  switch(xvar, 
+    norm = {
+      index = colSums(abs(beta))
+      iname = "L1 Norm"
+           }, 
+    lambda = {
+      index = log(lambda)
+      iname = "Log Lambda"
+           }
+  )
   xlab = iname
   ylab = "Coefficients"
   dotlist = list(...)
@@ -57,8 +60,7 @@ plot.sdwd = function(x, xvar=c("norm", "lambda"),
       type="l", pch=500, ...)
   } else matplot(index, t(beta), lty=1, xlab=xlab, ylab=ylab, ...)
     atdf = pretty(index)
-  prettydf = trunc(approx(x=index, y=df, xout=atdf, 
-                           rule=2)$y)
+  prettydf = trunc(approx(x=index, y=df, xout=atdf, rule=2)$y)
   axis(3, at=atdf, labels=prettydf, cex.axis=1, tcl=NA)
   if (label) {
     nnz = length(which)

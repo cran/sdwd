@@ -1,5 +1,5 @@
 coef.sdwdNET = function(object, s=NULL, 
-                           type=c("coefficients", "nonzero"), ...) {
+    type=c("coefficients", "nonzero"), ...) {
   type = match.arg(type)
   b0 = t(as.matrix(object$b0))
   rownames(b0) = "(Intercept)"
@@ -10,9 +10,9 @@ coef.sdwdNET = function(object, s=NULL,
     lambda = object$lambda
     lamlist = lambda.interp(lambda, s)
     nbeta = nbeta[,lamlist$left,drop=FALSE] %*% 
-             Diagonal(x=lamlist$frac) +
-             nbeta[,lamlist$right,drop=FALSE] %*% 
-             Diagonal(x=1-lamlist$frac)
+      Diagonal(x=lamlist$frac) +
+      nbeta[,lamlist$right,drop=FALSE] %*% 
+      Diagonal(x=1-lamlist$frac)
     dimnames(nbeta) = list(vnames, paste(seq(along=s)))
   }
   if (type == "coefficients") 
@@ -22,5 +22,5 @@ coef.sdwdNET = function(object, s=NULL,
 } 
 
 coef.sdwd = function(object, s=NULL, 
-                     type=c("coefficients", "nonzero"), ...) 
+    type=c("coefficients", "nonzero"), ...) 
   NextMethod("coef") 
