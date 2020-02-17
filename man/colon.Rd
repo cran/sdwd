@@ -45,5 +45,4 @@ sum(colon$y == -1)
 sum(colon$y == 1)
 }
 
-
-\keyword{datasets}
+\keyword{data set}

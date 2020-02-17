@@ -71,12 +71,11 @@
 ! LICENSE: GNU GPL (version 2 or later)
 ! 
 ! AUTHORS:
-!    Boxiang Wang (boxiang@umn.edu) and Hui Zou (hzou@stat.umn.edu), 
-!    School of Statistics, University of Minnesota.
+!    Boxiang Wang (boxiang-wang@uiowa.edu) and Hui Zou (hzou@stat.umn.edu).
 ! 
 ! REFERENCES:
-!    Wang, B. and Zou, H. (2015). Sparse Distance Weighted Discrimination, 
-!      School of Statistics, University of Minnesota.
+!    Wang, B. and Zou, H. (2016). Sparse distance weighted discrimination, 
+!      Journal of Computational and Graphical Statistics, 25(3), 826-838.
 
       SUBROUTINE sdwdNET (lam2, nobs, nvars, x, y, jd, pf, pf2, & 
       & dfmax, pmax, nlam, flmin, ulam, eps, isd, maxit, strong, &
@@ -94,7 +93,7 @@
          LOGICAL :: strong
          
 !------- local declarations -------------------------------------
-         INTEGER :: j, l, nk, ierr, ju (nvars), q_int
+         INTEGER :: j, l, nk, ju (nvars)
          DOUBLE PRECISION :: xmean (nvars), xnorm (nvars), maj (nvars)
          
 !------- preliminary step ---------------------------------------
@@ -103,15 +102,15 @@
          IF (Maxval (ju) <= 0) THEN
             jerr = 7777
             RETURN
-         END IF
+         ENDIF
          IF (Maxval (pf) <= 0.0D0) THEN
             jerr = 10000
             RETURN
-         END IF
+         ENDIF
          IF (Maxval (pf2) <= 0.0D0) THEN
             jerr = 10000
             RETURN
-         END IF
+         ENDIF
          pf = Max (0.0D0, pf)
          pf2 = Max (0.0D0, pf2)
 
@@ -128,11 +127,11 @@
             IF (isd == 1) THEN
                DO j = 1, nk
                   beta(j, l) = beta(j, l) / xnorm(ibeta(j))
-               END DO
-            END IF
+               ENDDO
+            ENDIF
             b0(l) = b0(l) - Dot_product (beta(1:nk, l), &
            & xmean(ibeta(1:nk)))
-         END DO
+         ENDDO
          RETURN
       END SUBROUTINE sdwdNET
 
@@ -145,10 +144,10 @@
          DOUBLE PRECISION, PARAMETER :: BIG = 9.9E30
          DOUBLE PRECISION, PARAMETER :: MFL = 1.0E-6
          INTEGER, PARAMETER :: MNLAM = 6
-         INTEGER :: mnl, nobs, nvars, dfmax, pmax, nlam
+         INTEGER :: nobs, nvars, dfmax, pmax, nlam
          INTEGER :: maxit, nalam, npass, jerr 
          INTEGER :: ju (nvars), m (pmax), nbeta (nlam)
-         DOUBLE PRECISION :: lam2, eps
+         DOUBLE PRECISION :: lam2, flmin, eps
          DOUBLE PRECISION :: x (nobs, nvars), y (nobs)
          DOUBLE PRECISION :: pf (nvars), pf2 (nvars),  ulam (nlam)
          DOUBLE PRECISION :: beta (pmax, nlam), b0 (nlam)
@@ -156,10 +155,10 @@
          LOGICAL :: strong
          
 !------- local declarations -------------------------------------
-         DOUBLE PRECISION :: d, dif, oldb, u, v, al, alf, flmin
+         DOUBLE PRECISION :: d, dif, oldb, u, v, al, alf
          DOUBLE PRECISION :: dl (nobs), r (nobs)
          DOUBLE PRECISION :: b (0:nvars), oldbeta (0:nvars)
-         INTEGER :: i, k, j, l, ctr, ierr, ni, me, mm (nvars)
+         INTEGER :: i, k, j, l, ctr, ni, me, mnl, mm (nvars)
 
 !------- local declarations for the strong rule -----------------
          INTEGER :: jx, jxx (nvars)
@@ -175,6 +174,7 @@
          npass = 0
          ni = npass
          maj = maj * 4.0
+         alf = 0.01D0
       
 ! strong rule
 !   jxx = 0 using the strong rule
@@ -184,17 +184,17 @@
             jxx = 0
          ELSE
             jxx = 1
-         END IF
+         ENDIF
          
 !---------- lambda loop -----------------------------------------
          mnl = Min (MNLAM, nlam)
          IF (flmin < 1.0D0) THEN
             flmin = Max (MFL, flmin)
             alf = flmin ** (1.0D0 / (nlam-1.0D0))
-         END IF
-            vl = 0.0D0
-            CALL DWDdrv(nobs, nvars, x, y, r, vl)
-            ga = Abs (vl)
+         ENDIF
+         vl = 0.0D0
+         CALL DWDdrv(nobs, nvars, x, y, r, vl)
+         ga = Abs (vl)
 
          loop_lambda: DO l = 1, nlam
             al0 = al
@@ -211,12 +211,12 @@
                   IF (ju(j) /= 0) THEN
                      IF (pf(j) > 0.0D0) THEN
                         al0 = Max (al0, ga(j) / pf(j))
-                     END IF
-                  END IF
-               END DO
+                     ENDIF
+                  ENDIF
+               ENDDO
                al = al0 * alf
-               END IF
-            END IF
+               ENDIF
+            ENDIF
             ctr = 0
             
 !---------- check strong rule (in lamdba loop) ------------------
@@ -224,7 +224,7 @@
             loop_strong_rule: DO j = 1, nvars
                IF (jxx(j) == 1) CYCLE
                IF (ga(j) > pf(j) * tlam) jxx(j) = 1
-            END DO loop_strong_rule
+            ENDDO loop_strong_rule
             
 !---------- outer loop ------------------------------------------
             loop_outer: DO
@@ -251,9 +251,9 @@
                               dl(i) = -0.25 / (r(i) * r(i))
                            ELSE
                               dl(i) = -1.0D0
-                           END IF
+                           ENDIF
                            u = u + dl(i) * y(i) * x(i, k)
-                        END DO 
+                        ENDDO 
 ! u:
 ! M \tilde{\beta_j} - 1/n * (\sum_{i=1}^n V'(r_i)y_i x_{ij} )
                         u = maj(k) * b(k) - u / nobs
@@ -264,7 +264,7 @@
                            b(k) = Sign (v, u) / (maj(k) + pf2(k) * lam2)
                         ELSE
                            b(k) = 0.0D0
-                        END IF
+                        ENDIF
                         d = b(k) - oldb
                         IF (Abs (d) > 0.0D0) THEN
                            dif = Max (dif, 4.0 * d * d)  !!!
@@ -274,10 +274,10 @@
                               IF (ni > pmax) EXIT
                               mm(k) = ni
                               m(ni) = k !indicate which one is non-zero
-                           END IF
-                        END IF
-                     END IF
-                  END DO loop_middle_update_betaj
+                           ENDIF
+                        ENDIF
+                     ENDIF
+                  ENDDO loop_middle_update_betaj
                   
 !---------- 2. update intercept ( in middle loop) ---------------
                   IF (ni > pmax) EXIT
@@ -287,9 +287,9 @@
                            dl(i) = -0.25 / (r(i) * r(i))
                         ELSE
                            dl(i) = -1.0D0
-                    END IF
+                    ENDIF
                     d = d + dl(i) * y(i)
-                  END DO
+                  ENDDO
                   d = - 0.25 * d / nobs !!!!!!!!!
                   IF (d /= 0.0D0) THEN
 ! New intercept:
@@ -297,12 +297,12 @@
                      b(0) = b(0) +  d
                      r = r + y * d
                      dif = Max (dif, 4.0 * d * d) !!!
-                  END IF
+                  ENDIF
                   IF (dif < eps) EXIT
                   IF (npass > maxit) THEN
                      jerr = -1
                      RETURN
-                  END IF
+                  ENDIF
                   
 !---------- inner loop ------------------------------------------
                   loop_inner: DO
@@ -319,9 +319,9 @@
                               dl(i) = -0.25 / (r(i) * r(i))
                            ELSE
                               dl(i) = -1.0D0
-                           END IF
+                           ENDIF
                            u = u + dl(i) * y(i) * x(i, k)
-                        END DO !!!!!!!!!!!!!!!!!!!!!!
+                        ENDDO !!!!!!!!!!!!!!!!!!!!!!
                         u = maj(k) * b(k) - u / nobs
                         v = al * pf(k)
                         v = Abs (u) - v
@@ -329,13 +329,13 @@
                            b(k) = Sign (v, u) / (maj(k) + pf2(k) * lam2)
                         ELSE
                            b(k) = 0.0D0
-                        END IF
+                        ENDIF
                         d = b(k) - oldb
                         IF (Abs(d) > 0.0D0) THEN
                            dif = Max (dif, 4.0 * d * d) !!!
                            r = r + y * x(:, k) * d
-                        END IF
-                     END DO
+                        ENDIF
+                     ENDDO
                      
 !---------- 2. update intercept ( in inner loop) ----------------
                      d = 0.0D0
@@ -344,22 +344,22 @@
                               dl(i) = -0.25 / (r(i) * r(i))
                            ELSE
                               dl(i) = -1.0D0
-                           END IF
+                           ENDIF
                         d = d + dl(i) * y(i)
-                     END DO !!!!!!!!!!!!!!!!!!!!!!
+                     ENDDO !!!!!!!!!!!!!!!!!!!!!!
                      d = - 0.25 * d / nobs !!!!!!!!!
                      IF (d /= 0.0D0) THEN
                         b(0) = b(0) + d
                         r = r + y * d
                         dif = Max (dif, 4.0 * d * d) !!!
-                     END IF
+                     ENDIF
                      IF (dif < eps) EXIT
                      IF (npass > maxit) THEN
                         jerr = -1
                         RETURN
-                     END IF
-                  END DO loop_inner
-               END DO loop_middle
+                     ENDIF
+                  ENDDO loop_inner
+               ENDDO loop_middle
                IF (ni > pmax) EXIT
                
 !---------- final check -----------------------------------------
@@ -369,19 +369,19 @@
                   IF (4.0 * (b(m(j)) - oldbeta(m(j))) ** 2 >= eps) THEN
                      jx = 1
                      EXIT
-                  END IF
-               END DO
+                  ENDIF
+               ENDDO
                IF (jx /= 0) CYCLE
 !---------- check the KKT conditions of the discarded variables--    
                CALL DWDdrv (nobs, nvars, x, y, r, vl)
-               ga = Abs (vl)
+               ga = Abs(vl)
                DO j = 1, nvars
                   IF (jxx(j) == 1) CYCLE
                   If (ga(j) > al * pf(j)) THEN
                      jxx(j) = 1
                      jx = 1
-                  END IF
-               END DO
+                  ENDIF
+               ENDDO
 ! jx:
 ! jx checks if some variable violates the KKT conditions. 
                IF (jx == 1) CYCLE
@@ -390,14 +390,14 @@
                IF (ctr > maxit) THEN
                   jerr = - l
                   RETURN
-               END IF
-            END DO loop_outer
+               ENDIF
+            ENDDO loop_outer
             
 !---------- final update variable save results ------------------
             IF (ni > pmax) THEN
                jerr = - 10000 - l
                EXIT
-            END IF
+            ENDIF
             IF (ni > 0) beta(1:ni, l) = b(m(1:ni))
             nbeta(l) = ni
             b0(l) = b(0)
@@ -407,7 +407,7 @@
             IF (flmin >= 1.0D0) CYCLE
             me = Count (beta(1:ni, l) /= 0.0D0)
             IF (me > dfmax) EXIT
-         END DO loop_lambda
+         ENDDO loop_lambda
          RETURN
       END SUBROUTINE sdwdNETpath
       
@@ -415,15 +415,19 @@
          IMPLICIT NONE
          INTEGER :: nobs, nvars, i
          DOUBLE PRECISION :: x (nobs, nvars), y (nobs)
-         DOUBLE PRECISION :: r (nobs), vl (nvars), dl (nobs)
-         vl = 0.0
+         DOUBLE PRECISION :: r (nobs), vl (nvars), dl (nobs), dly (nobs)
+         vl = 0.0D0
+         dl = 0.0D0
          DO i = 1, nobs
-            IF (r(i) > 0.5) THEN
-               dl(i) = -0.25 / (r(i) * r(i))
-               ELSE
-                  dl(i) = -1.0D0
-               END IF
-         END DO
-         vl = Matmul(dl * y, x) / nobs
+            IF (r(i) > 0.5D0) THEN
+               dl(i) = -0.25D0 / (r(i) * r(i))
+            ELSE
+               dl(i) = -1.0D0
+            ENDIF
+         ENDDO
+         dly = dl * y
+         DO i = 1, nvars
+            vl(i) = Dot_product(dly, x(1:nobs, i))
+         ENDDO
       END SUBROUTINE DWDdrv
  

@@ -1,6 +1,6 @@
 ! DESCRIPTION: 
 !
-!    These functions are minor modifications from the glmnet package:
+!    These functions are due to minor modifications from the glmnet package:
 !
 !    Jerome Friedman, Trevor Hastie, Robert Tibshirani (2010). 
 !    Regularization Paths for Generalized Linear Models via Coordinate Descent. 
