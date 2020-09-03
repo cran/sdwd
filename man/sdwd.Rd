@@ -8,7 +8,7 @@ sdwd(x, y, nlambda=100,
      lambda=NULL, lambda2=0, pf=rep(1, nvars), 
      pf2=rep(1, nvars), exclude, dfmax=nvars + 1, 
      pmax=min(dfmax * 1.2, nvars), standardize=TRUE, 
-     eps=1e-8, maxit=1e6, strong=T)
+     eps=1e-8, maxit=1e6, strong=TRUE)
 }
 \arguments{
     \item{x}{A matrix with \eqn{N} rows and \eqn{p} columns for predictors.}
@@ -61,7 +61,7 @@ Wang, B. and Zou, H. (2016)
   \cr
 Friedman, J., Hastie, T., and Tibshirani, R. (2010), "Regularization paths for generalized
 linear models via coordinate descent", \emph{Journal of Statistical Software}, \bold{33}(1), 1--22.\cr
-\url{http://www.jstatsoft.org/v33/i01/paper}\cr
+\url{https://www.jstatsoft.org/v33/i01/paper}\cr
 \cr
 Marron, J.S., Todd, M.J., and Ahn, J. (2007)
 ``Distance-Weighted Discrimination", 
@@ -72,7 +72,7 @@ Tibshirani, Robert., Bien, J., Friedman, J.,Hastie, T.,Simon,
   N.,Taylor, J., and Tibshirani, Ryan. (2012)
   Strong Rules for Discarding Predictors in Lasso-type Problems,
     \emph{Journal of the Royal Statistical Society, Series B}, \bold{74}(2), 245--266.\cr
-  \url{http://statweb.stanford.edu/~tibs/ftp/strong.pdf}\cr
+  \url{https://rss.onlinelibrary.wiley.com/doi/abs/10.1111/j.1467-9868.2011.01004.x}\cr
   \cr
 Yang, Y. and Zou, H. (2013)
 ``An Efficient Algorithm for Computing the HHSVM and Its Generalizations", 

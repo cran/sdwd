@@ -20,8 +20,7 @@ A list with the following elements:
   \item{y}{A numeric vector of length 62 representing the tissue type (1 for tumor; -1 for normal).}
 }
 
-\source{The data were introduced in Alon et al. (1999).
-\url{http://microarray.princeton.edu/oncology/affydata/index.html}}
+\source{The data were introduced in Alon et al. (1999).}
 
 \references{
 Alon, U., Barkai, N., Notterman, D.A., Gish, K., Ybarra, S., Mack, D., and Levine, A.J. (1999).

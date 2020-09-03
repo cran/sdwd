@@ -9,8 +9,6 @@ cv.sdwd = function(x, y, lambda=NULL,
             DWD; 'misclass' used.")
     pred.loss = "misclass"
   }
-  typenames = c(misclass = "mis-classification error",
-                loss     = "DWD loss")
   y = c(-1, 1)[as.factor(drop(y))]
   x = as.matrix(x)
   if (!all(y %in% c(-1, 1))) 
@@ -32,7 +30,7 @@ cv.sdwd = function(x, y, lambda=NULL,
   for (i in seq(nfolds)) {
     which = foldid == i
     outlist[[i]] = sdwd(x=x[!which, , drop=FALSE], 
-                        y=y[!which], lambda=lambda, ...)
+      y=y[!which], lambda=lambda, ...)
   }
   ## select the lambda according to predmat
   fun = paste("cv", class(sdwd.object)[[2]], sep=".")
@@ -42,8 +40,8 @@ cv.sdwd = function(x, y, lambda=NULL,
   cvsd = cvstuff$cvsd
   cvname = cvstuff$name
   out = list(lambda=lambda, cvm=cvm, cvsd=cvsd, 
-              cvupper=cvm+cvsd, cvlower=cvm - cvsd, nzero=nz, 
-              name=cvname, sdwd.fit=sdwd.object)
+    cvupper=cvm+cvsd, cvlower=cvm - cvsd, nzero=nz, 
+    name=cvname, sdwd.fit=sdwd.object)
   obj = c(out, as.list(getmin(lambda, cvm, cvsd)))
   class(obj) = "cv.sdwd"
   obj
@@ -65,7 +63,7 @@ cv.sdwdNET = function(outlist, lambda, x, y, foldid, pred.loss) {
     nlams[i] = nlami
   }
   typenames = c(misclass = "mis-classification error",
-              loss     = "DWD loss")
+                loss     = "DWD loss")
   cvraw = switch(pred.loss, 
     loss     = dwdloss(y * predmat),
     misclass = (y != ifelse(predmat > 0, 1, -1)))

@@ -3,7 +3,7 @@ sdwd = function(x, y, nlambda=100,
     lambda=NULL, lambda2=0, pf=rep(1, nvars), 
     pf2=rep(1, nvars), exclude, dfmax=nvars + 1, 
     pmax=min(dfmax * 1.2, nvars), standardize=TRUE, 
-    eps=1e-08, maxit=1e+06, strong=T) {
+    eps=1e-08, maxit=1e+06, strong=TRUE) {
   ####################################################################
   #data setup
   method = "dwd"
@@ -59,10 +59,10 @@ sdwd = function(x, y, nlambda=100,
   }
   ####################################################################
   fit = switch(method, 
-                dwd = sdwdpath(x, y, nlam, flmin, ulam, isd, eps, 
-                  dfmax, pmax, jd, pf, pf2, maxit, strong, 
-                  lam2, nobs, nvars, vnames), 
-                )
+    dwd = sdwdpath(x, y, nlam, flmin, ulam, isd, eps, 
+      dfmax, pmax, jd, pf, pf2, maxit, strong, 
+      lam2, nobs, nvars, vnames), 
+  )
   if (is.null(lambda)) 
     fit$lambda = lamfix(fit$lambda)
   fit$call = this.call
@@ -72,8 +72,7 @@ sdwd = function(x, y, nlambda=100,
 } 
 
 sdwdpath = function(x, y, nlam, flmin, ulam, isd, eps, dfmax, 
-                    pmax, jd, pf, pf2, maxit, strong, lam2, 
-                    nobs, nvars, vnames) {
+    pmax, jd, pf, pf2, maxit, strong, lam2, nobs, nvars, vnames) {
   ####################################################################
   #data setup
   y = as.factor(y)
@@ -83,12 +82,13 @@ sdwdpath = function(x, y, nlam, flmin, ulam, isd, eps, dfmax,
   ####################################################################
   # call Fortran core
   fit = .Fortran("sdwdNET", lam2, nobs, nvars, 
-                as.double(x), as.double(y), jd, pf, pf2, dfmax, 
-                pmax, nlam, flmin, ulam, eps, isd, maxit, strong,
-                nalam=integer(1), b0=double(nlam), 
-                beta=double(pmax * nlam), ibeta=integer(pmax), 
-                nbeta=integer(nlam), alam=double(nlam), 
-                npass=integer(1), jerr=integer(1))
+    as.double(x), as.double(y), jd, pf, pf2, dfmax, 
+    pmax, nlam, flmin, ulam, eps, isd, maxit, 
+    strong=as.integer(strong),
+    nalam=integer(1), b0=double(nlam), 
+    beta=double(pmax * nlam), ibeta=integer(pmax), 
+    nbeta=integer(nlam), alam=double(nlam), 
+    npass=integer(1), jerr=integer(1))
   #################################################################
   # output
   outlist = getoutput(fit, maxit, pmax, nvars, vnames)
