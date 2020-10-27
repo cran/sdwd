@@ -171,6 +171,8 @@
          ni = npass
          maj = maj * 4.0
          alf = 0.01D0
+         ga = 0.0D0
+         vl = 0.0D0
       
 ! strong rule
 !   jxx = 0 using the strong rule

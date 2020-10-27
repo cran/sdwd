@@ -1,5 +1,5 @@
 46aaf69a91703493b666f212a04f2d8d *COPYING
-d89a30d75e0f3a315ef27dd79284baa9 *DESCRIPTION
+c74a6649777b2a92c3bf18c0bd516e1e *DESCRIPTION
 2cdcebc685cd778fe54ea46a077c1dcb *NAMESPACE
 2bd84d9deee5871ec4696a8042981e29 *R/coef.sdwd.R
 992c092017ea25f64314246e3e53df6d *R/cv.sdwd.R
@@ -21,4 +21,4 @@ edda7c3e4fe92563f5bfec0c44fe1c9c *man/sdwd-internal.Rd
 9de8dc4159ceae4da05f79e946aa3385 *man/sdwd.Rd
 5728b176f392c20ba91cafdf22981225 *src/auxiliary.f90
 220937993658fdbde9625c8506b5e5e3 *src/init.c
-e1ea6dea0b890980334d2abaad7cafd9 *src/sdwd.f90
+91aa0274bd41e72c0d1a8a95e6b515c8 *src/sdwd.f90
